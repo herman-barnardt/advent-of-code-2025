@@ -1,6 +1,7 @@
 package day1
+
 import (
-	"errors"
+	"strconv"
 
 	aoc "github.com/herman-barnardt/aoc"
 )
@@ -10,9 +11,43 @@ func init() {
 }
 
 func solve2025Day1Part1(lines []string, test bool) interface{} {
-	return errors.New("Not yet implemented")
+	position := 50
+	count := 0
+	for _, l := range lines {
+		num, _ := strconv.Atoi(l[1:])
+		if l[:1] == "L" {
+			num = num * -1
+		}
+		position = (position + num) % 100
+		if position < 0 {
+			position = 100 + position
+		}
+		if position == 0 {
+			count++
+		}
+	}
+	return count
 }
 
 func solve2025Day1Part2(lines []string, test bool) interface{} {
-	return errors.New("Not yet implemented")
+	position := 50
+	count := 0
+	for _, l := range lines {
+		num, _ := strconv.Atoi(l[1:])
+		if num > 100 {
+			count += num / 100
+			num = num % 100
+		}
+		if l[:1] == "L" {
+			num = num * -1
+		}
+		if position != 0 && ((position+num) >= 100 || (position+num) <= 0) {
+			count++
+		}
+		position = (position + num) % 100
+		if position < 0 {
+			position = 100 + position
+		}
+	}
+	return count
 }
